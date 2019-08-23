@@ -2,12 +2,13 @@
     the user
 
 2) How does the server match the correct view function to the HTTP request?
-    via url
+    via url and method
 
 3) Where does a form submit data to?
-    the server view function whose url matches form action url
+    the server view function whose url matches form action url and method
 
 4) What happens when we return a redirect?
+    returns a redirect response, which then forces browser to visit specified url
     starts a new HTTP cycle, and resets the url, because it returns a different view function
 
 5) What happens when we return a render?
@@ -15,4 +16,4 @@
 
 6) Why do we redirect rather than render when we succesfully save?
     start new HTTP cycle such that a page refresh does not POST or try to save again
-    because last view function is different
+    because last HTTP Request is different
