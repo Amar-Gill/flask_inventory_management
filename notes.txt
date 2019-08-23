@@ -1,0 +1,18 @@
+1) Who initiates HTTP request?
+    the user
+
+2) How does the server match the correct view function to the HTTP request?
+    via url
+
+3) Where does a form submit data to?
+    the server view function whose url matches form action url
+
+4) What happens when we return a redirect?
+    starts a new HTTP cycle, and resets the url, because it returns a different view function
+
+5) What happens when we return a render?
+    sends a HTTP request for the url, on top of previous HTTP requests
+
+6) Why do we redirect rather than render when we succesfully save?
+    start new HTTP cycle such that a page refresh does not POST or try to save again
+    because last view function is different

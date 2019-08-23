@@ -1,7 +1,8 @@
 import peeweedbevolve
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, flash
 from models import db, Store
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.before_request
 def before_request():
@@ -27,9 +28,12 @@ def store_get():
 @app.route("/store", methods=["POST"])
 def store_post():
    print(request.form)
-   store = request.form['store']
-   Store.create(name = store)
-   return render_template("store.html", store=store)
+   store = Store(name = request.form['store'])
+   if store.save():
+      flash( store.name + ' was successfully saved!')
+      return redirect('/store')
+   else:
+      return render_template("store.html", name=request.form['store'])
 
 if __name__ == '__main__':
    app.run()
