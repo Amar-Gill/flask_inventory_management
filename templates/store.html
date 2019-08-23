@@ -1,11 +1,8 @@
 {% extends '_layout.html' %}
 {% block content %}
-    <!-- {% if store %}
-        <h2> {{store}} added!</h2>
-    {% endif %} -->
     <a href={{ url_for('home') }}><h1>Home</h1></a>
     <h1>Store</h1>
-    <form action={{ url_for('create') }} method="POST">
+    <form action={{ url_for('create_store') }} method="POST">
         <input type = 'text' name='store'/>
         <input type = 'submit' class = 'btn btn-primary'/>
     </form>
