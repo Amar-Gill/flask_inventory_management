@@ -59,7 +59,7 @@ def create_store():
       flash( store.name + ' was successfully saved!')
       return redirect('/new_store')
    else:
-      return render_template("new_store.html", name=request.form['store'])
+      return render_template("new_store.html", name=request.form['store'], errors=store.errors)
 
 @app.route("/new_warehouse", methods=["POST"])
 def create_warehouse():
@@ -70,7 +70,7 @@ def create_warehouse():
       flash('Warehouse ' + str(warehouse.id) + ' was successfully saved!')
       return redirect('/new_warehouse')
    else:
-      return render_template("new_warehouse.html", location=request.form['location'], store=store)
+      return render_template("new_warehouse.html", location=request.form['location'], store=store, errors=warehouse.errors)
 
 @app.route('/destroy_store/<store_id>', methods=["POST"])
 def destroy_store(store_id):
