@@ -72,5 +72,13 @@ def create_warehouse():
    else:
       return render_template("new_warehouse.html", location=request.form['location'], store=store)
 
+@app.route('/destroy_store/<store_id>', methods=["POST"])
+def destroy_store(store_id):
+   #destroy warehouse because of server conditions
+   Warehouse.delete().where(Warehouse.store_id == store_id).execute()
+   Store.delete().where(Store.id == store_id).execute()
+   return redirect('/stores')
+   
+
 if __name__ == '__main__':
    app.run()
