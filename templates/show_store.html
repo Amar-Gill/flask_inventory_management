@@ -1,0 +1,9 @@
+{% extends '_layout.html' %}
+{% block content %}
+    <h1>{{store.name}}</h1>
+    <h3>Warehouse count:</h3>
+    <h3>{{store.warehouse.count()}}</h3>
+    <form action = {{ url_for('index_stores') }}>
+        <input type='submit' class ='btn btn-primary' value='Store Index'>
+    </form>
+{% endblock %}

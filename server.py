@@ -21,40 +21,48 @@ def migrate():
 def home():
    return render_template('index.html')
 
-@app.route("/store", methods=["GET"])
+@app.route("/new_store", methods=["GET"])
 def new_store():
-   return render_template("store.html")
+   return render_template("new_store.html")
 
-@app.route("/warehouse", methods=["GET"])
+@app.route("/new_warehouse", methods=["GET"])
 def new_warehouse():
    stores = Store.select()
-   return render_template("warehouse.html", stores=stores)
+   return render_template("new_warehouse.html", stores=stores)
 
 @app.route("/stores", methods=["GET"])
 def index_stores():
    stores = Store.select()
    return render_template("index_stores.html", stores=stores)
 
-@app.route("/store", methods=["POST"])
+@app.route("/store/<store_id>")
+def show_store(store_id):
+   store = Store.get_by_id(store_id)
+   if store:
+      return render_template('show_store.html', store = store)
+   else:
+      return redirect('/stores')
+
+@app.route("/new_store", methods=["POST"])
 def create_store():
    print(request.form)
    store = Store(name = request.form['store'])
    if store.save():
       flash( store.name + ' was successfully saved!')
-      return redirect('/store')
+      return redirect('/new_store')
    else:
-      return render_template("store.html", name=request.form['store'])
+      return render_template("new_store.html", name=request.form['store'])
 
-@app.route("/warehouse", methods=["POST"])
+@app.route("/new_warehouse", methods=["POST"])
 def create_warehouse():
    print(request.form)
    store = Store.get_by_id(request.form['store_id'])
    warehouse = Warehouse(location = request.form['location'], store=store)
    if warehouse.save():
       flash('Warehouse ' + str(warehouse.id) + ' was successfully saved!')
-      return redirect('/warehouse')
+      return redirect('/new_warehouse')
    else:
-      return render_template("warehouse.html", location=request.form['location'], store=store)
+      return render_template("new_warehouse.html", location=request.form['location'], store=store)
 
 if __name__ == '__main__':
    app.run()
