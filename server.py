@@ -35,13 +35,21 @@ def index_stores():
    stores = Store.select()
    return render_template("index_stores.html", stores=stores)
 
-@app.route("/store/<store_id>")
-def show_store(store_id):
+@app.route("/store/<store_id>", methods=["GET"])
+def edit_store(store_id):
    store = Store.get_or_none(Store.id == store_id)
    if store:
       return render_template('show_store.html', store = store)
    else:
       return redirect('/stores')
+
+@app.route("/store/<store_id>", methods=["POST"])
+def update_store(store_id):
+   name = request.form['name']
+   newname = Store.update(name = name).where(Store.id == store_id)
+   newname.execute()
+   flash('Store name updated!')
+   return redirect(f'/store/{store_id}')
 
 @app.route("/new_store", methods=["POST"])
 def create_store():

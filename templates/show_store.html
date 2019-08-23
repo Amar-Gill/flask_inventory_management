@@ -3,7 +3,12 @@
     <h1>{{store.name}}</h1>
     <h3>Warehouse count:</h3>
     <h3>{{store.warehouse.count()}}</h3>
+    <form action={{ url_for('update_store', store_id=store.id)}} method="POST">
+        <h3>Update Store Name</h3>
+        <input type='text' name='name' value= {{store.name}}>
+        <input type='submit' class='btn btn-primary'>
+    </form>
     <form action = {{ url_for('index_stores') }}>
-        <input type='submit' class ='btn btn-primary' value='Store Index'>
+        <input type='submit' class ='btn btn-warning' value='Store Index'>
     </form>
 {% endblock %}
