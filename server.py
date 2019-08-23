@@ -18,15 +18,15 @@ def migrate():
    db.evolve(ignore_tables={'base_model'})
 
 @app.route("/")
-def index():
+def home():
    return render_template('index.html')
 
 @app.route("/store", methods=["GET"])
-def store_get():
+def new():
    return render_template("store.html")
 
 @app.route("/store", methods=["POST"])
-def store_post():
+def create():
    print(request.form)
    store = Store(name = request.form['store'])
    if store.save():
