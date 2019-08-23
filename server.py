@@ -30,6 +30,11 @@ def new_warehouse():
    stores = Store.select()
    return render_template("warehouse.html", stores=stores)
 
+@app.route("/stores", methods=["GET"])
+def index_stores():
+   stores = Store.select()
+   return render_template("index_stores.html", stores=stores)
+
 @app.route("/store", methods=["POST"])
 def create_store():
    print(request.form)
@@ -49,7 +54,7 @@ def create_warehouse():
       flash('Warehouse ' + str(warehouse.id) + ' was successfully saved!')
       return redirect('/warehouse')
    else:
-      return render_template("warehouse.html", location=request.form['location'])
+      return render_template("warehouse.html", location=request.form['location'], store=store)
 
 if __name__ == '__main__':
    app.run()

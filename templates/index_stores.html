@@ -1,0 +1,19 @@
+{% extends '_layout.html' %}
+{% block content %}
+    <a href={{ url_for('home') }}><h1>Home</h1></a>
+    <h1>Stores</h1>
+    <table class='table'>
+        <tr>
+            <td>id</td>
+            <td>Name</td>
+            <td>No. Warehouses</td>
+        </tr>
+        {% for s in stores %}
+            <tr>
+                <td>{{s.id}}</td>
+                <td><a>{{s.name}}</a></td>
+                <td>{{s.warehouse.count()}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
