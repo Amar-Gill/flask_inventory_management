@@ -37,7 +37,7 @@ def index_stores():
 
 @app.route("/store/<store_id>")
 def show_store(store_id):
-   store = Store.get_by_id(store_id)
+   store = Store.get_or_none(Store.id == store_id)
    if store:
       return render_template('show_store.html', store = store)
    else:
